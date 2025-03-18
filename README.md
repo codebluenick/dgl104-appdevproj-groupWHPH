@@ -65,3 +65,30 @@ Repo url : https://github.com/codebluenick/dgl104-appdevproj-groupWHPH.git
 ### 7. CI/CD Pipeline 
 - __*GitHub Actions :*__ Runs basic unit tests or lint checks on every Pull Request.
 - __*Deployment :*__ Deploy to free hosting (Heroku, Netlify, or Vercel) if tests pass.
+
+
+## Technology Stack
+### Backend
+- **Node.js + Express**  
+  
+- __*Database :*__  **MongoDB** or **MySQL**  
+
+---
+
+### Frontend
+- **React** 
+  
+- __*UI Library :*__  **Bootstrap** or **Tailwind**
+
+---
+
+### Authentication
+- **JWT (JSON Web Tokens)**
+
+---
+
+### Notifications
+- **In-App Notifications**  
+  - Store notifications in the database and display them in the UI (e.g., a bell icon or notification feed).
+- **Email Notifications**  
+  - Can be added later using a service like **Nodemailer** to send emails upon task assignment or status updates.
