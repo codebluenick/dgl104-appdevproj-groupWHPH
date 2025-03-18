@@ -2,7 +2,7 @@
   "name": "dgl104-appdevproj-groupwhph",
   "version": "1.0.0",
   "description": "Group project repo for DGL-104 web app project (Smart Task Management System [STMS]).",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
