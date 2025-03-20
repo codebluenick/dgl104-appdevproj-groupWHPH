@@ -1,5 +1,5 @@
-const express = require('express');
 const dotenv = require('dotenv').config();
+const express = require('express');
 const mongoose = require('mongoose');
 
 const app = express();
@@ -13,10 +13,7 @@ mongoose.connect(process.env.MONGO_URI)
         console.log(`Server running on port ${port}`); // Run server after connection with the database 
     });
 })
-// .catch(() => {
-//     console.log("Connection to the Database failed !!!",),
-//     console.log("Connection failed:", error);
-// });
+
 .catch((error) => {
     console.log("Connection failed:", error);
 });
