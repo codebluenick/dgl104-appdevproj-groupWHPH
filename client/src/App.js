@@ -1,8 +1,11 @@
-// client/src/App.js
 import React from 'react';
 
 function App() {
-  return <div>Hello, World!</div>;
+  return (
+    <div>
+      <h1>Hello from App.js!</h1>
+    </div>
+  );
 }
 
 export default App;
