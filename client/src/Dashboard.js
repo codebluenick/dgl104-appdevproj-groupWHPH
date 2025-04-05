@@ -1,7 +1,7 @@
 // src/Dashboard.js
 import React, { useEffect, useState } from 'react';
 import AdminDashboard from './AdminDashboard';
-import TeamLeadDashboard from './TeamLeadDashboard';
+import TeamLeadDashboard from './pages/TeamLeadDashboard';
 import TeamMemberDashboard from './TeamMemberDashboard';
 
 function Dashboard() {

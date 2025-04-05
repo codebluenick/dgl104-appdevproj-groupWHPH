@@ -1,7 +1,7 @@
 // src/TeamLeadDashboard.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './pages/components/TeamLeadDashboard.css';
+import '../styles/TeamLeadDashboard.css';
 
 
 function TeamLeadDashboard() {
