@@ -1,11 +1,18 @@
+// src/App.js
 import React, { useState, useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
+
 import LoginPage from './LoginPage';
 import Dashboard from './Dashboard';
+
+// Pages
+import CreateTask from './pages/CreateTask';
+import AssignTask from './pages/AssignTask';
+import ViewTasks from './pages/ViewTasks';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // On app load, check localStorage to see if we previously logged in
   useEffect(() => {
     const storedStatus = localStorage.getItem('google_simple_login');
     if (storedStatus === 'true') {
@@ -13,13 +20,20 @@ function App() {
     }
   }, []);
 
-  // If not logged in, show the LoginPage component.
-  if (!isLoggedIn) {
-    return <LoginPage onLoginSuccess={() => setIsLoggedIn(true)} />;
-  }
-
-  // If logged in, show the Dashboard which handles role-based rendering.
-  return <Dashboard />;
+  return (
+    <Routes>
+      {!isLoggedIn ? (
+        <Route path="*" element={<LoginPage onLoginSuccess={() => setIsLoggedIn(true)} />} />
+      ) : (
+        <>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/create-task" element={<CreateTask />} />
+          <Route path="/assign-task" element={<AssignTask />} />
+          <Route path="/view-tasks" element={<ViewTasks />} />
+        </>
+      )}
+    </Routes>
+  );
 }
 
 export default App;
