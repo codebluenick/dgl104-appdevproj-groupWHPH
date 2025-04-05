@@ -21,7 +21,8 @@ function AdminDashboard() {
           icon={<FaTasks size={36} />}
           title="View All Tasks"
           description="See every task in the system."
-          onClick={() => navigate('/admin/view-tasks')}
+          onClick={() => navigate('/admin-view-tasks')}
+
         />
         <AdminCard
           icon={<FaExchangeAlt size={36} />}

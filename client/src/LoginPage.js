@@ -11,7 +11,8 @@ function LoginPage({ onLoginSuccess }) {
       // 🔐 Role mapping based on email
       const adminEmails = ['hardik.vaghasiya.admission@gmail.com'];
       const teamLeadEmails = ['vaghasiyahardik2001@gmail.com'];
-      const teamMemberEmails = ['gratisbear14@gmail.com', 'user@example.com'];
+      // const teamMemberEmails = ['gratisbear14@gmail.com'];
+
 
       let role = 'TeamMember'; // Default
 
