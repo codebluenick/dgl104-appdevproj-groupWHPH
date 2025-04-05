@@ -8,6 +8,9 @@ import TeamLeadDashboard from './pages/TeamLeadDashboard';
 import TeamMemberDashboard from './TeamMemberDashboard'; 
 import ManageUsers from './pages/ManageUsers';
 import AdminViewTasks from './pages/AdminViewTasks';
+import ReassignTask from './pages/ReassignTask';
+
+
 
 
 
@@ -51,6 +54,9 @@ function App() {
           <Route path="/view-tasks" element={<ViewTasks />} />
           <Route path="/admin/manage-users" element={<ManageUsers />} />
           <Route path="/admin-view-tasks" element={<AdminViewTasks />} />
+          <Route path="/admin/reassign-tasks" element={<ReassignTask />} />
+
+
 
 
 
