@@ -82,4 +82,27 @@
       font-size: 1.8rem;
     }
   }
+
+  .logout-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+  }
+  
+  .logout-btn {
+    background-color: #3b82f6;
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    margin-right: 1rem;
+  }
+  
+  .logout-btn:hover {
+    background-color: #2563eb;
+  }
+  
   

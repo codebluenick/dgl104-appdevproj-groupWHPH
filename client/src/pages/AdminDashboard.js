@@ -7,9 +7,22 @@ import { FaUsers, FaTasks, FaExchangeAlt } from 'react-icons/fa';
 function AdminDashboard() {
   const navigate = useNavigate();
 
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate('/login');
+  };
+
   return (
     <div className="admin-dashboard-container">
+      {/* 🔓 Logout Button */}
+      <div className="logout-container">
+        <button className="logout-btn" onClick={handleLogout}>
+          Logout
+        </button>
+      </div>
+
       <h1 className="admin-title">Admin Dashboard</h1>
+
       <div className="admin-card-grid">
         <AdminCard
           icon={<FaUsers size={36} />}
@@ -22,7 +35,6 @@ function AdminDashboard() {
           title="View All Tasks"
           description="See every task in the system."
           onClick={() => navigate('/admin-view-tasks')}
-
         />
         <AdminCard
           icon={<FaExchangeAlt size={36} />}
