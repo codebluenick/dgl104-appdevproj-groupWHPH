@@ -1,44 +1,56 @@
-// src/AdminDashboard.js
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Sidebar from './pages/components/sidebar';
+import TaskCard from './pages/components/TaskCard';
+import CreateTask from './pages/CreateTask';
 
-function AdminDashboard() {
+import '././styles/Dashboard.css';
+
+function TeamLeadDashboard() {
   const navigate = useNavigate();
+  const [showCreateTask, setShowCreateTask] = useState(false);
 
   const handleLogout = () => {
-    localStorage.removeItem('google_simple_login');
-    localStorage.removeItem('user_role');
+    localStorage.clear();
     navigate('/login');
   };
 
   return (
-    <div style={styles.container}>
-      <h1>Admin Dashboard</h1>
-      <ul style={styles.list}>
-        <li>Manage Users</li>
-        <li>View All Tasks</li>
-        <li>Reassign Tasks</li>
-      </ul>
-      <button style={styles.button} onClick={handleLogout}>Log Out</button>
+    <div className="dashboard">
+      <Sidebar />
+      <div className="dashboard-content">
+        <div className="top-bar">
+          <h1>Team Lead Dashboard</h1>
+          <button className="logout-btn" onClick={handleLogout}>Log Out</button>
+        </div>
+
+        {/* Show either the cards or the CreateTask form */}
+        {!showCreateTask ? (
+          <div className="card-grid">
+            <TaskCard
+              title="Create Task"
+              description="Create a new task for your team."
+              onClick={() => setShowCreateTask(true)}
+            />
+            <TaskCard
+              title="Assign Task"
+              description="Assign tasks to team members."
+              onClick={() => navigate('/assign-task')}
+            />
+            <TaskCard
+              title="View All Tasks"
+              description="Monitor progress across all tasks."
+              onClick={() => navigate('/view-tasks')}
+            />
+          </div>
+        ) : (
+          <div className="create-task-wrapper">
+            <CreateTask />
+          </div>
+        )}
+      </div>
     </div>
   );
 }
 
-const styles = {
-  container: {
-    textAlign: 'center',
-    marginTop: '2rem',
-  },
-  list: {
-    listStyle: 'none',
-    padding: 0,
-    fontSize: '1.2rem',
-  },
-  button: {
-    marginTop: '1.5rem',
-    padding: '0.5rem 1rem',
-    fontSize: '1rem',
-  },
-};
-
-export default AdminDashboard;
+export default TeamLeadDashboard;

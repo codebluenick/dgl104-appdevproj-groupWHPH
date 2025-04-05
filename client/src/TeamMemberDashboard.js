@@ -1,44 +1,60 @@
-// src/TeamMemberDashboard.js
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Sidebar from './pages/components/sidebar';
+import TaskCard from './pages/components/TaskCard';
+import CreateTask from './pages/CreateTask'; // make sure path is correct
+import './styles/Dashboard.css';
 
-function TeamMemberDashboard() {
+function TeamLeadDashboard() {
   const navigate = useNavigate();
+  const [activeSection, setActiveSection] = useState('dashboard'); // tracks what's shown
 
   const handleLogout = () => {
-    localStorage.removeItem('google_simple_login');
-    localStorage.removeItem('user_role');
+    localStorage.clear();
     navigate('/login');
   };
 
   return (
-    <div style={styles.container}>
-      <h1>Team Member Dashboard</h1>
-      <ul style={styles.list}>
-        <li>View Assigned Tasks</li>
-        <li>Update Task Status</li>
-        <li>Add Comments</li>
-      </ul>
-      <button style={styles.button} onClick={handleLogout}>Log Out</button>
+    <div className="dashboard">
+      <Sidebar />
+      <div className="dashboard-content">
+        {/* Top Bar */}
+        <div className="top-bar">
+          <h1>Team Lead Dashboard</h1>
+          <button className="logout-btn" onClick={handleLogout}>Log Out</button>
+        </div>
+
+        {/* Conditional Rendering */}
+        {activeSection === 'dashboard' && (
+          <div className="card-grid">
+            <TaskCard
+              title="Create Task"
+              description="Create a new task for your team."
+              onClick={() => setActiveSection('create')}
+            />
+            <TaskCard
+              title="Assign Task"
+              description="Assign tasks to team members."
+              onClick={() => setActiveSection('assign')}
+            />
+            <TaskCard
+              title="View All Tasks"
+              description="Monitor progress across all tasks."
+              onClick={() => setActiveSection('view')}
+            />
+          </div>
+        )}
+
+        {activeSection === 'create' && (
+          <div className="embedded-form">
+            <CreateTask />
+          </div>
+        )}
+
+        {/* You can later add AssignTask, ViewTasks in similar way */}
+      </div>
     </div>
   );
 }
 
-const styles = {
-  container: {
-    textAlign: 'center',
-    marginTop: '2rem',
-  },
-  list: {
-    listStyle: 'none',
-    padding: 0,
-    fontSize: '1.2rem',
-  },
-  button: {
-    marginTop: '1.5rem',
-    padding: '0.5rem 1rem',
-    fontSize: '1rem',
-  },
-};
-
-export default TeamMemberDashboard;
+export default TeamLeadDashboard;

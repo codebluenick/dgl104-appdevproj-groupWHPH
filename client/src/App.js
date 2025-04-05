@@ -6,7 +6,6 @@ import LoginPage from './LoginPage';
 import Dashboard from './Dashboard';
 
 // Pages
-import CreateTask from './pages/CreateTask';
 import AssignTask from './pages/AssignTask';
 import ViewTasks from './pages/ViewTasks';
 
@@ -27,7 +26,6 @@ function App() {
       ) : (
         <>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/create-task" element={<CreateTask />} />
           <Route path="/assign-task" element={<AssignTask />} />
           <Route path="/view-tasks" element={<ViewTasks />} />
         </>
