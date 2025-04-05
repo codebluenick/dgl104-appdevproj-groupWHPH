@@ -5,7 +5,8 @@ import { Routes, Route } from 'react-router-dom';
 import LoginPage from './LoginPage';
 import AdminDashboard from './pages/AdminDashboard';
 import TeamLeadDashboard from './pages/TeamLeadDashboard';
-import TeamMemberDashboard from './TeamMemberDashboard'; // Also check this
+import TeamMemberDashboard from './TeamMemberDashboard'; 
+import ManageUsers from './pages/ManageUsers';
 
 
 import AssignTask from './pages/AssignTask';
@@ -46,6 +47,8 @@ function App() {
           <Route path="/" element={getDashboardComponent()} />
           <Route path="/assign-task" element={<AssignTask />} />
           <Route path="/view-tasks" element={<ViewTasks />} />
+          <Route path="/admin/manage-users" element={<ManageUsers />} />
+
         </>
       )}
     </Routes>
