@@ -3,39 +3,33 @@ import { useNavigate } from 'react-router-dom';
 import Sidebar from './components/sidebar';
 import TaskCard from './components/TaskCard';
 import CreateTask from '../pages/CreateTask';
-import AssignTask from '../pages/AssignTask'; // ✅ Import AssignTask form
+import AssignTask from '../pages/AssignTask';
+import ViewTasks from '../pages/ViewTasks'; 
 import '../styles/Dashboard.css';
 
 function TeamLeadDashboard() {
   const navigate = useNavigate();
 
-  // ✅ Toggle flags for form rendering
   const [showCreateTask, setShowCreateTask] = useState(false);
   const [showAssignTask, setShowAssignTask] = useState(false);
+  const [showViewTasks, setShowViewTasks] = useState(false);
 
   const handleLogout = () => {
     localStorage.clear();
     navigate('/login');
   };
 
-  const handleCancelCreate = () => setShowCreateTask(false);
-  const handleCancelAssign = () => setShowAssignTask(false);
-
-  const isFormOpen = showCreateTask || showAssignTask;
+  const isFormOpen = showCreateTask || showAssignTask || showViewTasks;
 
   return (
     <div className="dashboard">
       <Sidebar />
       <div className="dashboard-content">
-        {/* Top Bar */}
         <div className="top-bar">
           <h1>Team Lead Dashboard</h1>
-          <button className="logout-btn" onClick={handleLogout}>
-            Log Out
-          </button>
+          <button className="logout-btn" onClick={handleLogout}>Log Out</button>
         </div>
 
-        {/* Show task cards only when no form is open */}
         {!isFormOpen && (
           <div className="card-grid">
             <TaskCard
@@ -44,6 +38,7 @@ function TeamLeadDashboard() {
               onClick={() => {
                 setShowCreateTask(true);
                 setShowAssignTask(false);
+                setShowViewTasks(false);
               }}
             />
             <TaskCard
@@ -52,27 +47,36 @@ function TeamLeadDashboard() {
               onClick={() => {
                 setShowAssignTask(true);
                 setShowCreateTask(false);
+                setShowViewTasks(false);
               }}
             />
             <TaskCard
               title="View All Tasks"
               description="Monitor progress across all tasks."
-              onClick={() => navigate('/view-tasks')}
+              onClick={() => {
+                setShowViewTasks(true);
+                setShowCreateTask(false);
+                setShowAssignTask(false);
+              }}
             />
           </div>
         )}
 
-        {/* Inline Create Task form */}
         {showCreateTask && (
           <div className="create-task-wrapper">
-            <CreateTask onCancel={handleCancelCreate} />
+            <CreateTask onCancel={() => setShowCreateTask(false)} />
           </div>
         )}
 
-        {/* Inline Assign Task form */}
         {showAssignTask && (
           <div className="create-task-wrapper">
-            <AssignTask onCancel={handleCancelAssign} />
+            <AssignTask onCancel={() => setShowAssignTask(false)} />
+          </div>
+        )}
+
+        {showViewTasks && (
+          <div className="create-task-wrapper">
+            <ViewTasks onCancel={() => setShowViewTasks(false)} />
           </div>
         )}
       </div>
