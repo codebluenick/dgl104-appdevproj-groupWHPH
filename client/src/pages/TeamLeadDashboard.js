@@ -1,37 +1,43 @@
-// src/TeamLeadDashboard.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/TeamLeadDashboard.css';
-
+import Sidebar from './components/sidebar';
+import TaskCard from './components/TaskCard';
+import '../styles/Dashboard.css';
 
 function TeamLeadDashboard() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem('google_simple_login');
-    localStorage.removeItem('user_role');
-    navigate('/');
+    localStorage.clear();
+    navigate('/login');
   };
 
   return (
-    <div className="dashboard-wrapper">
-      <header className="dashboard-navbar">
-        <h2>Team Lead Dashboard</h2>
-        <button className="logout-button" onClick={handleLogout}>Log Out</button>
-      </header>
+    <div className="dashboard">
+      <Sidebar />
+      <div className="dashboard-content">
+        {/* Removed <Header /> and replaced with inline top bar */}
+        <div className="top-bar">
+          <h1>Team Lead Dashboard</h1>
+          <button className="logout-btn" onClick={handleLogout}>Log Out</button>
+        </div>
 
-      <div className="card-container">
-        <div className="dashboard-card" onClick={() => navigate('/create-task')}>
-          <h3>Create Task</h3>
-          <p>Create a new task for your team.</p>
-        </div>
-        <div className="dashboard-card" onClick={() => navigate('/assign-task')}>
-          <h3>Assign Task</h3>
-          <p>Assign tasks to team members.</p>
-        </div>
-        <div className="dashboard-card" onClick={() => navigate('/view-tasks')}>
-          <h3>View All Tasks</h3>
-          <p>Monitor progress across all tasks.</p>
+        <div className="card-grid">
+          <TaskCard
+            title="Create Task"
+            description="Create a new task for your team."
+            onClick={() => navigate('/create-task')}
+          />
+          <TaskCard
+            title="Assign Task"
+            description="Assign tasks to team members."
+            onClick={() => navigate('/assign-task')}
+          />
+          <TaskCard
+            title="View All Tasks"
+            description="Monitor progress across all tasks."
+            onClick={() => navigate('/view-tasks')}
+          />
         </div>
       </div>
     </div>
