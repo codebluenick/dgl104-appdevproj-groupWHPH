@@ -1,21 +1,33 @@
-// LoginPage.js
 import React from 'react';
 import { GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from 'jwt-decode';
 
 function LoginPage({ onLoginSuccess }) {
   const handleSuccess = (credentialResponse) => {
     if (credentialResponse.credential) {
+      const decoded = jwtDecode(credentialResponse.credential);
+      const userEmail = decoded.email;
+
+      // 🔐 Role mapping based on email
+      const adminEmails = ['hardik.vaghasiya.admission@gmail.com'];
+      const teamLeadEmails = ['vaghasiyahardik2001@gmail.com'];
+      const teamMemberEmails = ['gratisbear14@gmail.com', 'user@example.com'];
+
+      let role = 'TeamMember'; // Default
+
+      if (adminEmails.includes(userEmail)) {
+        role = 'Admin';
+      } else if (teamLeadEmails.includes(userEmail)) {
+        role = 'TeamLead';
+      }
+
+      // Store in localStorage
       localStorage.setItem('google_simple_login', 'true');
+      localStorage.setItem('userEmail', userEmail);
+      localStorage.setItem('userRole', role);
 
-      // Assign mock role for testing
-      const roles = ['Admin', 'TeamLead', 'TeamMember'];
-      const randomRole = roles[Math.floor(Math.random() * roles.length)];
-      localStorage.setItem('user_role', randomRole);
+      console.log(`✅ Login successful. Email: ${userEmail}, Role: ${role}`);
 
-      // Debug log
-      console.log("✅ Login successful. Assigned role:", randomRole);
-
-      // Trigger app login logic
       onLoginSuccess();
     }
   };
@@ -26,7 +38,7 @@ function LoginPage({ onLoginSuccess }) {
 
   return (
     <div style={styles.container}>
-      {/* Left panel with branding */}
+      {/* Left Panel */}
       <div style={styles.leftPanel}>
         <div style={styles.brandContainer}>
           <h1 style={styles.brandTitle}>Smart Task System</h1>
@@ -34,7 +46,7 @@ function LoginPage({ onLoginSuccess }) {
         </div>
       </div>
 
-      {/* Right panel with login card */}
+      {/* Right Panel */}
       <div style={styles.rightPanel}>
         <div style={styles.loginCard}>
           <h2 style={styles.loginTitle}>Sign In</h2>

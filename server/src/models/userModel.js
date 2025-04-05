@@ -1,26 +1,16 @@
 const mongoose = require('mongoose');
 
-// Defining mongoose schema inside the users collection
 const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    trim: true
-  },
+  name: String,
   email: {
     type: String,
     required: true,
     unique: true,
-    lowercase: true
-  },
-  password: {
-    type: String,
-    required: true
   },
   role: {
     type: String,
-    enum: ['Admin', 'TeamLead', 'TeamMember'],
-    default: 'TeamMember'
+    enum: ['admin', 'teamlead', 'teammember'],
+    default: 'teammember'
   }
 }, { timestamps: true });
 
