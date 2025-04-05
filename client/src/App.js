@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { GoogleLogin } from '@react-oauth/google';
-import HomePage from './HomePage';
+import LoginPage from './LoginPage';
+import Dashboard from './Dashboard';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -13,29 +13,13 @@ function App() {
     }
   }, []);
 
-  const handleSuccess = (credentialResponse) => {
-    console.log('Google login success:', credentialResponse);
-    // Mark user as logged in (but we do NOT decode or use the token).
-    localStorage.setItem('google_simple_login', 'true');
-    setIsLoggedIn(true);
-  };
-
-  const handleError = () => {
-    console.error('Google login failed');
-  };
-
-  // If not logged in, show login button
+  // If not logged in, show the LoginPage component.
   if (!isLoggedIn) {
-    return (
-      <div style={{ margin: '2rem', textAlign: 'center' }}>
-        <h1>Login with Google</h1>
-        <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
-      </div>
-    );
+    return <LoginPage onLoginSuccess={() => setIsLoggedIn(true)} />;
   }
 
-  // If logged in, show the main/home page
-  return <HomePage />;
+  // If logged in, show the Dashboard which handles role-based rendering.
+  return <Dashboard />;
 }
 
 export default App;
