@@ -96,4 +96,20 @@ exports.updateTask = async (req, res) => {
   }
 };
 
+exports.addComment = async (req, res) => {
+  const { id } = req.params;
+  const { text } = req.body;
 
+  try {
+    const task = await Task.findById(id);
+    if (!task) return res.status(404).json({ message: 'Task not found' });
+
+    task.comments.push({ text, date: new Date() });
+    await task.save();
+
+    res.status(200).json({ message: 'Comment added successfully', task });
+  } catch (error) {
+    console.error('Error adding comment:', error);
+    res.status(500).json({ message: 'Failed to add comment' });
+  }
+};

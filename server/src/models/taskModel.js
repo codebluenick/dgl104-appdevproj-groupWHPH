@@ -7,6 +7,7 @@ const taskSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  
   description: String,
   priority: {
     type: String,
