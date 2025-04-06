@@ -1,14 +1,13 @@
 // server/src/routes/taskRoutes.js
 const express = require('express');
 const router = express.Router();
-const { createTask, getAllTasks, updateTask  } = require('../controllers/taskController');
+const { createTask, getAllTasks, updateTask, getTasksForUser   } = require('../controllers/taskController');
 
 // POST: Create a task
 router.post('/', createTask);
-
-// Optional: GET all tasks
 router.get('/', getAllTasks);
 router.put('/:id', updateTask);
+router.get('/assigned/:userId', getTasksForUser);
 
 module.exports = router;
 

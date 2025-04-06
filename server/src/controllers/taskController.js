@@ -39,6 +39,19 @@ exports.getAllTasks = async (req, res) => {
     res.status(500).json({ message: 'Server Error' });
   }
 };
+// Get tasks assigned to a specific user
+exports.getTasksForUser = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const tasks = await Task.find({ assignedTo: userId }).populate('assignedTo', 'name email');
+    res.status(200).json(tasks);
+  } catch (error) {
+    console.error('Error fetching tasks for user:', error);
+    res.status(500).json({ message: 'Failed to fetch tasks' });
+  }
+};
+
 
 // Update Task Assignment
 exports.updateTask = async (req, res) => {
