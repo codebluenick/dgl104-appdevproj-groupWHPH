@@ -1,19 +1,26 @@
 const dotenv = require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-
 const app = express();
-const port = process.env.PORT || 3001; // Port defined in .env
+const port = process.env.PORT || 3001;
 
-// Connect to MongoDB, uri stored in .env
+app.use(express.json());
+
+// DB connection
 mongoose.connect(process.env.MONGO_URI)
-.then(() => {
-    console.log("Connected to the Database !!!")
+  .then(() => {
+    console.log("✅ Connected to the Database !!!");
     app.listen(port, () => {
-        console.log(`Server running on port ${port}`); // Run server after connection with the database 
+      console.log(`🚀 Server running on port ${port}`);
     });
-})
+  })
+  .catch((error) => {
+    console.error("❌ Connection failed:", error);
+  });
 
-.catch((error) => {
-    console.log("Connection failed:", error);
-});
+// ✅ Correct paths here
+const taskRoutes = require('./src/routes/taskRoutes');
+const userRoutes = require('./src/routes/userRoutes');
+
+app.use('/api/tasks', taskRoutes);
+app.use('/api/users', userRoutes);

@@ -18,7 +18,11 @@ async function handleLogin(req, res) {
     }
 
     // Store basic user info in session or JWT or send to frontend
-    return res.status(200).json({ message: 'Login successful', user });
+ // server/src/controllers/authController.js
+exports.registerUser = (req, res) => {
+  res.status(200).json({ message: "User registered successfully!" });
+};
+
 
   } catch (error) {
     return res.status(500).json({ message: 'Server error during login' });
