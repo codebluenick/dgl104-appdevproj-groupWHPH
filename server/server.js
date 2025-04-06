@@ -27,6 +27,8 @@ mongoose.connect(process.env.MONGO_URI)
     console.error("❌ Connection failed:", error);
   });
 
+  const taskRoutes = require('./src/routes/taskRoutes');
+  app.use('/api/tasks', taskRoutes);
 
   const userRoutes = require('./src/routes/userRoutes');
   app.use('/api/users', userRoutes); // ✅ this line expects a Router
