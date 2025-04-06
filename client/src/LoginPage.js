@@ -76,7 +76,7 @@ const styles = {
   },
   leftPanel: {
     flex: 1,
-    background: 'linear-gradient(135deg, #ff3f5e, #ff733f)',
+    backgroundColor:'#6a11cb',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -95,7 +95,7 @@ const styles = {
   },
   rightPanel: {
     flex: 1,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: 'transparent',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -103,7 +103,7 @@ const styles = {
   },
   loginCard: {
     width: '350px',
-    backgroundColor: '#fff',
+    backgroundColor: '',
     borderRadius: '8px',
     boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
     padding: '2rem',

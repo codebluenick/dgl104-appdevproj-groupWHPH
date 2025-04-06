@@ -35,7 +35,7 @@
 .create-task-form textarea:focus,
 .create-task-form select:focus {
   outline: none;
-  border-color: #4f46e5;
+  border-color: #6a11cb;
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
 }
 
@@ -47,7 +47,7 @@
 }
 
 .submit-btn {
-  background-color: #4f46e5;
+  background-color: #6a11cb;
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -59,7 +59,7 @@
 }
 
 .submit-btn:hover {
-  background-color: #4338ca;
+  background-color: #6a11cb;
 }
 
 .cancel-btn {

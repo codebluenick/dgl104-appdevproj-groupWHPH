@@ -41,7 +41,7 @@
   }
   
   select:focus {
-    border-color: #3b82f6; /* Match blue */
+    border-color: #6a11cb; /* Match blue */
     box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
     outline: none;
   }
@@ -51,7 +51,7 @@
     padding: 1rem;
     font-size: 1rem;
     font-weight: 600;
-    background-color: #3b82f6; /* Tailwind blue-500 */
+    background-color: #6a11cb; /* Tailwind blue-500 */
     color: #fff;
     border: none;
     border-radius: 10px;
@@ -60,7 +60,7 @@
   }
   
   .reassign-btn:hover {
-    background-color: #2563eb; /* Tailwind blue-600 */
+    background-color: #6a11cb; /* Tailwind blue-600 */
     transform: translateY(-1px);
   }
   
@@ -90,7 +90,7 @@
   }
   
   .logout-btn {
-    background-color: #3b82f6;
+    background-color: #6a11cb;
     color: #fff;
     border: none;
     padding: 0.6rem 1.2rem;
@@ -102,7 +102,7 @@
   }
   
   .logout-btn:hover {
-    background-color: #2563eb;
+    background-color: #6a11cb;
   }
   
   
