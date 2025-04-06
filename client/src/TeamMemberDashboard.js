@@ -19,9 +19,7 @@ function TeamMemberDashboard() {
         {/* Top Bar */}
         <div className="top-bar">
           <h1>Team Member Dashboard</h1>
-          <button className="logout-btn" onClick={handleLogout}>
-            Log Out
-          </button>
+
         </div>
 
         {/* Tabs */}
