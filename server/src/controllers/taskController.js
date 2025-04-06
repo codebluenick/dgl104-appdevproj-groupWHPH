@@ -30,3 +30,24 @@ exports.getAllTasks = async (req, res) => {
     res.status(500).json({ message: 'Server Error' });
   }
 };
+exports.updateTask = async (req, res) => {
+  const { id } = req.params;
+  const { assignedTo } = req.body;
+
+  try {
+    const updatedTask = await Task.findByIdAndUpdate(
+      id,
+      { assignedTo },
+      { new: true }
+    ).populate('assignedTo', 'name email'); // Return updated user info
+
+    if (!updatedTask) {
+      return res.status(404).json({ message: 'Task not found' });
+    }
+
+    res.status(200).json(updatedTask);
+  } catch (err) {
+    console.error('❌ Failed to update task:', err);
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
