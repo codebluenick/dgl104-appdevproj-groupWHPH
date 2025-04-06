@@ -20,7 +20,7 @@ exports.createTask = async (req, res) => {
     // ✅ Send email to assigned user
     const user = await User.findById(assignedTo);
     if (user && user.email) {
-      await sendAssignmentEmail(user.email, title, dueDate);
+      await sendAssignmentEmail(user.email, title, dueDate, newTask._id);
     }
 
     res.status(201).json({ message: 'Task created successfully', task: newTask });
@@ -53,31 +53,47 @@ exports.getTasksForUser = async (req, res) => {
 };
 
 
-// Update Task Assignment
 exports.updateTask = async (req, res) => {
   const { id } = req.params;
-  const { assignedTo } = req.body;
+  const { assignedTo, status } = req.body;
 
   try {
-    const updatedTask = await Task.findByIdAndUpdate(
-      id,
-      { assignedTo },
-      { new: true }
-    ).populate('assignedTo', 'name email');
-
-    if (!updatedTask) {
+    const existingTask = await Task.findById(id);
+    if (!existingTask) {
       return res.status(404).json({ message: 'Task not found' });
     }
 
-    // ✅ Send reassignment email
-    const user = await User.findById(assignedTo);
-    if (user && user.email) {
-      await sendAssignmentEmail(user.email, updatedTask.title, updatedTask.dueDate);
+    const previousAssignee = existingTask.assignedTo?.toString();
+    let shouldSendEmail = false;
+
+    // Check if assignedTo is being updated
+    if (assignedTo && assignedTo !== previousAssignee) {
+      existingTask.assignedTo = assignedTo;
+      shouldSendEmail = true;
     }
 
-    res.status(200).json(updatedTask);
+    if (status) {
+      existingTask.status = status;
+    }
+
+    const updatedTask = await existingTask.save();
+    const populatedTask = await updatedTask.populate('assignedTo', 'name email');
+
+    // Send email only if assignment changed
+    if (shouldSendEmail && populatedTask.assignedTo?.email) {
+      await sendAssignmentEmail(
+        populatedTask.assignedTo.email,
+        populatedTask.title,
+        populatedTask.dueDate,
+        populatedTask._id
+      );
+    }
+
+    res.status(200).json(populatedTask);
   } catch (err) {
     console.error('❌ Failed to update task:', err);
     res.status(500).json({ message: 'Server Error' });
   }
 };
+
+
