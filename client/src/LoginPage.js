@@ -2,46 +2,55 @@ import React from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function LoginPage({ onLoginSuccess }) {
   const navigate = useNavigate();
 
-  const handleSuccess = (credentialResponse) => {
+  const handleSuccess = async (credentialResponse) => {
     if (credentialResponse.credential) {
       const decoded = jwtDecode(credentialResponse.credential);
       const userEmail = decoded.email;
-      const userPic = decoded.picture; 
-      localStorage.setItem('userPic', userPic); 
-      
-  
+      const userPic = decoded.picture;
+      const userName = decoded.name;
+
       const adminEmails = ['hardik.vaghasiya.admission@gmail.com'];
       const teamLeadEmails = ['vaghasiyahardik2001@gmail.com'];
       const teamMemberEmails = ['gratisbear14@gmail.com'];
-  
-      let role = 'TeamMember';
-  
+
+      let role = 'teammember';
       if (adminEmails.includes(userEmail)) {
-        role = 'Admin';
+        role = 'admin';
       } else if (teamLeadEmails.includes(userEmail)) {
-        role = 'TeamLead';
+        role = 'teamlead';
       }
-  
-      // ✅ Store all necessary info
+
+      // Store in localStorage
       localStorage.setItem('google_simple_login', 'true');
       localStorage.setItem('userEmail', userEmail);
       localStorage.setItem('userRole', role);
-      localStorage.setItem('userPic', userPic); // ✅
-  
+      localStorage.setItem('userPic', userPic);
+      localStorage.setItem('userName', userName);
+
+      // Save to DB
+      try {
+        await axios.post('http://localhost:3001/api/users', {
+          name: userName,
+          email: userEmail,
+          role,
+        });
+        console.log("✅ User saved to DB");
+      } catch (error) {
+        console.error("❌ Failed to save user:", error);
+      }
+
+      // Redirect to appropriate dashboard
       onLoginSuccess();
-  
-      // redirect
-      if (role === 'Admin') navigate('/');
-      else if (role === 'TeamLead') navigate('/');
+      if (role === 'admin') navigate('/');
+      else if (role === 'teamlead') navigate('/team-lead');
       else navigate('/team-member');
     }
   };
-  
-  
 
   const handleError = () => {
     console.log('❌ Google Login Failed');
@@ -49,7 +58,6 @@ function LoginPage({ onLoginSuccess }) {
 
   return (
     <div style={styles.container}>
-      {/* Left Panel */}
       <div style={styles.leftPanel}>
         <div style={styles.brandContainer}>
           <h1 style={styles.brandTitle}>Smart Task System</h1>
@@ -57,7 +65,6 @@ function LoginPage({ onLoginSuccess }) {
         </div>
       </div>
 
-      {/* Right Panel */}
       <div style={styles.rightPanel}>
         <div style={styles.loginCard}>
           <h2 style={styles.loginTitle}>Sign In</h2>
@@ -108,7 +115,6 @@ const styles = {
   },
   loginCard: {
     width: '350px',
-    backgroundColor: '',
     borderRadius: '8px',
     boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
     padding: '2rem',

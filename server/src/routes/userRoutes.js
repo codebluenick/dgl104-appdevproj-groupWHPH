@@ -1,14 +1,36 @@
+// server/src/routes/userRoutes.js
 const express = require('express');
 const router = express.Router();
-const User = require('../models/userModel');
+const User = require('../models/users'); // ✅ This is the model
 
-router.get('/users', async (req, res) => {
+// POST route to save/update user from Google login
+router.post('/', async (req, res) => {
+  const { name, email, role } = req.body;
+
   try {
-    const users = await User.find({}, 'name email'); // select only name and email
-    res.json(users);
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      user = new User({ name, email, role });
+      await user.save();
+    }
+
+    res.status(200).json(user);
   } catch (err) {
-    res.status(500).json({ message: 'Server Error' });
+    console.error('❌ Failed to save user:', err);
+    res.status(500).json({ error: 'Server error' });
   }
 });
 
-module.exports = router;
+// GET route to fetch all users
+router.get('/', async (req, res) => {
+  try {
+    const users = await User.find({}, 'name email role');
+    res.json(users);
+  } catch (err) {
+    console.error('❌ Error fetching users:', err);
+    res.status(500).json({ error: 'Failed to fetch users' });
+  }
+});
+
+module.exports = router; // ✅ Must export the router!

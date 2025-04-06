@@ -12,15 +12,17 @@ function CreateTask({ onCancel }) {
 
   // Fetch users from the backend for dropdown
   useEffect(() => {
-    axios.get('http://localhost:5000/api/users')
+    axios.get('http://localhost:3001/api/users')  // Corrected port
       .then(res => setUsers(res.data))
       .catch(err => console.error('Error fetching users:', err));
   }, []);
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const taskData = { title, description, dueDate, priority, assignedTo };
+
 
     try {
       const res = await axios.post('http://localhost:5000/api/tasks', taskData);

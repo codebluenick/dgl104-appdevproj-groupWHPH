@@ -22,7 +22,7 @@ const taskSchema = new mongoose.Schema({
   assignedTo: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
-  },
+  },  
   comments: [{
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     text: String,
