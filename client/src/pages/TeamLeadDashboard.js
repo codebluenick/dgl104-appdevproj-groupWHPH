@@ -7,27 +7,26 @@ import AssignTask from '../pages/AssignTask';
 import ViewTasks from '../pages/ViewTasks'; 
 import '../styles/Dashboard.css';
 
-function TeamLeadDashboard() {
-  const navigate = useNavigate();
 
+function TeamLeadDashboard() {
   const [showCreateTask, setShowCreateTask] = useState(false);
   const [showAssignTask, setShowAssignTask] = useState(false);
   const [showViewTasks, setShowViewTasks] = useState(false);
 
-  const handleLogout = () => {
-    localStorage.clear();
-    navigate('/login');
-  };
-
   const isFormOpen = showCreateTask || showAssignTask || showViewTasks;
+
+  const handleHomeClick = () => {
+    setShowCreateTask(false);
+    setShowAssignTask(false);
+    setShowViewTasks(false);
+  };
 
   return (
     <div className="dashboard">
-      <Sidebar />
+      <Sidebar onHomeClick={handleHomeClick} />
       <div className="dashboard-content">
         <div className="top-bar">
           <h1>Team Lead Dashboard</h1>
-          <button className="logout-btn" onClick={handleLogout}>Log Out</button>
         </div>
 
         {!isFormOpen && (

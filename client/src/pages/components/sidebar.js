@@ -1,7 +1,8 @@
 // src/pages/components/Sidebar.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../styles/Sidebar.css'; // optional styling import
+import '../../styles/Sidebar.css';
+import { FaHome, FaSignOutAlt } from 'react-icons/fa';
 
 function Sidebar({ onHomeClick }) {
   const navigate = useNavigate();
@@ -13,13 +14,15 @@ function Sidebar({ onHomeClick }) {
 
   return (
     <div className="sidebar">
-      <div className="logo">STMS</div>
-      <ul className="nav">
+      <div className="sidebar-logo">STMS</div>
+      <ul className="sidebar-nav">
         <li onClick={onHomeClick}>
-          <i className="fas fa-home"></i> Home
+          <FaHome className="sidebar-icon" />
+          <span>Home</span>
         </li>
         <li onClick={handleLogout}>
-          <i className="fas fa-sign-out-alt"></i> Logout
+          <FaSignOutAlt className="sidebar-icon" />
+          <span>Logout</span>
         </li>
       </ul>
     </div>
