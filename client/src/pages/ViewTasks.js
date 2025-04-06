@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import '../styles/ViewTasks.css'; // optional CSS
 
-function ViewTasks({ onCancel }) {
+function ViewTasks() {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
@@ -16,15 +17,19 @@ function ViewTasks({ onCancel }) {
       {tasks.length === 0 ? (
         <p>No tasks found.</p>
       ) : (
-        <ul>
+        <div className="task-list">
           {tasks.map(task => (
-            <li key={task._id}>
-              <strong>{task.title}</strong> - {task.priority} - Assigned to: {task.assignedTo?.name || 'Unassigned'}
-            </li>
+            <div key={task._id} className="task-card">
+              <h3>{task.title}</h3>
+              <p><strong>Description:</strong> {task.description}</p>
+              <p><strong>Priority:</strong> {task.priority}</p>
+              <p><strong>Status:</strong> {task.status}</p>
+              <p><strong>Due Date:</strong> {new Date(task.dueDate).toLocaleDateString()}</p>
+              <p><strong>Assigned To:</strong> {task.assignedTo?.name} ({task.assignedTo?.email})</p>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
-      <button onClick={onCancel}>Back</button>
     </div>
   );
 }
