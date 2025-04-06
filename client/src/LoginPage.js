@@ -1,20 +1,21 @@
 import React from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
 
 function LoginPage({ onLoginSuccess }) {
+  const navigate = useNavigate();
+
   const handleSuccess = (credentialResponse) => {
     if (credentialResponse.credential) {
       const decoded = jwtDecode(credentialResponse.credential);
       const userEmail = decoded.email;
 
-      // 🔐 Role mapping based on email
       const adminEmails = ['hardik.vaghasiya.admission@gmail.com'];
       const teamLeadEmails = ['vaghasiyahardik2001@gmail.com'];
-      // const teamMemberEmails = ['gratisbear14@gmail.com'];
+      const teamMemberEmails = ['gratisbear14@gmail.com'];
 
-
-      let role = 'TeamMember'; // Default
+      let role = 'TeamMember';
 
       if (adminEmails.includes(userEmail)) {
         role = 'Admin';
@@ -22,12 +23,16 @@ function LoginPage({ onLoginSuccess }) {
         role = 'TeamLead';
       }
 
-      // Store in localStorage
       localStorage.setItem('google_simple_login', 'true');
       localStorage.setItem('userEmail', userEmail);
       localStorage.setItem('userRole', role);
 
       console.log(`✅ Login successful. Email: ${userEmail}, Role: ${role}`);
+
+      // 🔁 Redirect based on role immediately
+      if (role === 'Admin') navigate('/');
+      else if (role === 'TeamLead') navigate('/');
+      else navigate('/team-member');
 
       onLoginSuccess();
     }
