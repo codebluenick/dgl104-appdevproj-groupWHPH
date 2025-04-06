@@ -1,27 +1,26 @@
-// server/routes/taskRoutes.js
+// server/src/routes/taskRoutes.js
 const express = require('express');
 const router = express.Router();
-const Task = require('../models/taskModel');
+const Task = require('../../models/Task');
 
-// POST /api/tasks - create task
+// POST - Create a Task
 router.post('/', async (req, res) => {
   try {
-    const task = new Task(req.body);
-    await task.save();
-    res.status(201).json(task);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Failed to create task' });
+    const newTask = new Task(req.body);
+    await newTask.save();
+    res.status(201).json(newTask);
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to create task', error });
   }
 });
 
-// GET /api/tasks - get all tasks
+// GET - View all tasks
 router.get('/', async (req, res) => {
   try {
     const tasks = await Task.find().populate('assignedTo');
     res.json(tasks);
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch tasks' });
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to fetch tasks', error });
   }
 });
 
