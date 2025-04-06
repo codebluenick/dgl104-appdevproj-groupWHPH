@@ -10,33 +10,38 @@ function LoginPage({ onLoginSuccess }) {
     if (credentialResponse.credential) {
       const decoded = jwtDecode(credentialResponse.credential);
       const userEmail = decoded.email;
-
+      const userPic = decoded.picture; 
+      localStorage.setItem('userPic', userPic); 
+      
+  
       const adminEmails = ['hardik.vaghasiya.admission@gmail.com'];
       const teamLeadEmails = ['vaghasiyahardik2001@gmail.com'];
       const teamMemberEmails = ['gratisbear14@gmail.com'];
-
+  
       let role = 'TeamMember';
-
+  
       if (adminEmails.includes(userEmail)) {
         role = 'Admin';
       } else if (teamLeadEmails.includes(userEmail)) {
         role = 'TeamLead';
       }
-
+  
+      // ✅ Store all necessary info
       localStorage.setItem('google_simple_login', 'true');
       localStorage.setItem('userEmail', userEmail);
       localStorage.setItem('userRole', role);
-
-      console.log(`✅ Login successful. Email: ${userEmail}, Role: ${role}`);
-
-      // 🔁 Redirect based on role immediately
+      localStorage.setItem('userPic', userPic); // ✅
+  
+      onLoginSuccess();
+  
+      // redirect
       if (role === 'Admin') navigate('/');
       else if (role === 'TeamLead') navigate('/');
       else navigate('/team-member');
-
-      onLoginSuccess();
     }
   };
+  
+  
 
   const handleError = () => {
     console.log('❌ Google Login Failed');

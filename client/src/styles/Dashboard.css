@@ -139,4 +139,17 @@ body {
     cursor: pointer;
     font-weight: 600;
   }
+  .profile-section {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  
+  .profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #6a11cb;
+    object-fit: cover;
+  }
   
