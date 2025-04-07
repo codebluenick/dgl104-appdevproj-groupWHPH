@@ -6,7 +6,7 @@ import { FaHome, FaSignOutAlt, FaColumns } from 'react-icons/fa';
 
 function Sidebar({ onHomeClick, onKanbanClick }) {
   const navigate = useNavigate();
-  const role = localStorage.getItem('role'); // Ensure this exists
+  const role = localStorage.getItem('userRole'); // Ensure this exists
 
   const handleLogout = () => {
     localStorage.clear();
