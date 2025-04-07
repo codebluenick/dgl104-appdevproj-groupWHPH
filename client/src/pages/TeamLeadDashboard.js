@@ -5,8 +5,8 @@ import TaskCard from './components/TaskCard';
 import CreateTask from './CreateTask';
 import AssignTask from './AssignTask';
 import ViewTasks from './ViewTasks';
-import KanbanBoard from './KanbanBoard';
 import '../styles/Dashboard.css';
+import TaskPieChart from './KanbanBoard';
 
 function TeamLeadDashboard() {
   const [activeSection, setActiveSection] = useState('');
@@ -23,7 +23,7 @@ function TeamLeadDashboard() {
       case 'view':
         return <ViewTasks onCancel={handleHomeClick} />;
       case 'kanban':
-        return <KanbanBoard />;
+        return <TaskPieChart />;
       default:
         return (
           <div className="card-grid">
