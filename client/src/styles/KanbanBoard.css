@@ -36,17 +36,17 @@
     color: #111827;
   }
   .export-btn {
-    background-color: #8b5cf6;
+    background-color: #a855f7;
     color: white;
-    padding: 10px 20px;
+    padding: 0.6rem 1.2rem;
     border: none;
-    font-weight: bold;
     border-radius: 8px;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: 0.3s ease;
   }
   
   .export-btn:hover {
-    background-color: #6d28d9;
+    background-color: #9333ea;
   }
   

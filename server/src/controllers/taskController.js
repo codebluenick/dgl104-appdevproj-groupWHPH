@@ -138,3 +138,23 @@ exports.addComment = async (req, res) => {
     res.status(500).json({ message: 'Failed to add comment' });
   }
 };
+
+const decorateTask = require('../decorators/taskDecorator.js'); // with .js
+
+
+
+
+
+// Get All Tasks
+exports.getAllTasks = async (req, res) => {
+  try {
+    const tasks = await Task.find().populate('assignedTo', 'name email');
+
+    const decoratedTasks = tasks.map(task => decorateTask(task));
+
+    res.json(decoratedTasks);
+  } catch (error) {
+    console.error('Error fetching tasks:', error);
+    res.status(500).json({ message: 'Server Error' });
+  }
+};

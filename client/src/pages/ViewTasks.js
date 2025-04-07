@@ -1,6 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import '../styles/ViewTasks.css'; // optional CSS
+import '../styles/ViewTasks.css';
+
+// Task Decorator Function (Decorator Pattern)
+const decorateTask = (task) => {
+  const today = new Date();
+  const dueDate = new Date(task.dueDate);
+
+  return {
+    ...task,
+    isOverdue: dueDate < today && task.status !== 'Completed',
+    priorityLabel: task.priority === 'High' ? '🔥 High Priority' : task.priority,
+  };
+};
 
 function ViewTasks() {
   const [tasks, setTasks] = useState([]);
@@ -12,8 +24,9 @@ function ViewTasks() {
   useEffect(() => {
     axios.get('http://localhost:3001/api/tasks/all')
       .then(res => {
-        setTasks(res.data);
-        setFilteredTasks(res.data);
+        const decorated = res.data.map(decorateTask);
+        setTasks(decorated);
+        setFilteredTasks(decorated);
       })
       .catch(err => console.error('Error fetching tasks:', err));
   }, []);
@@ -69,10 +82,13 @@ function ViewTasks() {
             <div key={task._id} className="task-card">
               <h3>{task.title}</h3>
               <p><strong>Description:</strong> {task.description}</p>
-              <p><strong>Priority:</strong> {task.priority}</p>
+              <p><strong>Priority:</strong> {task.priorityLabel}</p>
               <p><strong>Status:</strong> {task.status}</p>
               <p><strong>Due Date:</strong> {new Date(task.dueDate).toLocaleDateString()}</p>
               <p><strong>Assigned To:</strong> {task.assignedTo?.name} ({task.assignedTo?.email})</p>
+              {task.isOverdue && (
+                <p style={{ color: 'red', fontWeight: 'bold' }}>⚠️ This task is overdue!</p>
+              )}
             </div>
           ))}
         </div>

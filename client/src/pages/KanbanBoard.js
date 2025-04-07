@@ -5,35 +5,48 @@ import {
 } from 'recharts';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import '../styles/KanbanBoard.css'; // You can reuse this CSS for layout
+import '../styles/KanbanBoard.css';
 
 const COLORS = ['#a855f7', '#8b5cf6', '#6d28d9'];
 
+// 🎨 Decorator-like function to add display metadata
+const decorateChartData = (taskCounts) => {
+  return [
+    {
+      name: 'To Do',
+      value: taskCounts.ToDo,
+      label: `📝 To Do (${taskCounts.ToDo})`
+    },
+    {
+      name: 'In Progress',
+      value: taskCounts.InProgress,
+      label: `🔧 In Progress (${taskCounts.InProgress})`
+    },
+    {
+      name: 'Completed',
+      value: taskCounts.Completed,
+      label: `✅ Completed (${taskCounts.Completed})`
+    }
+  ];
+};
+
 function TaskPieChart() {
-  const [taskData, setTaskData] = useState({ ToDo: 0, InProgress: 0, Completed: 0 });
+  const [pieData, setPieData] = useState([]);
   const chartRef = useRef();
 
   useEffect(() => {
     axios.get('http://localhost:3001/api/tasks/all')
-
       .then(res => {
-        const tasks = res.data;
         const count = { ToDo: 0, InProgress: 0, Completed: 0 };
-        tasks.forEach(task => {
+        res.data.forEach(task => {
           if (task.status === 'To Do') count.ToDo++;
           else if (task.status === 'In Progress') count.InProgress++;
           else if (task.status === 'Completed') count.Completed++;
         });
-        setTaskData(count);
+        setPieData(decorateChartData(count));
       })
       .catch(err => console.error('Error fetching tasks:', err));
   }, []);
-
-  const pieData = [
-    { name: 'To Do', value: taskData.ToDo },
-    { name: 'In Progress', value: taskData.InProgress },
-    { name: 'Completed', value: taskData.Completed }
-  ];
 
   const handleExportPDF = () => {
     html2canvas(chartRef.current).then(canvas => {
@@ -46,7 +59,7 @@ function TaskPieChart() {
 
   return (
     <div className="kanban-container" ref={chartRef}>
-      <h2 style={{ textAlign: 'center' }}>Task Distribution (Pie Chart)</h2>
+      <h2 style={{ textAlign: 'center' }}>📊 Task Distribution</h2>
 
       <div style={{ width: '100%', height: 400 }}>
         <ResponsiveContainer>
@@ -61,13 +74,11 @@ function TaskPieChart() {
               label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
               labelLine={false}
             >
-              {pieData.map((_, index) => (
+              {pieData.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
               ))}
             </Pie>
-            <Tooltip
-              formatter={(value, name) => [`${value} tasks`, name]}
-            />
+            <Tooltip formatter={(value, name) => [`${value} tasks`, name]} />
             <Legend />
           </PieChart>
         </ResponsiveContainer>
@@ -76,8 +87,6 @@ function TaskPieChart() {
       <div style={{ textAlign: 'center', marginTop: '1rem' }}>
         <button className="export-btn" onClick={handleExportPDF}>📄 Export as PDF</button>
       </div>
-
-      {/* Optional: You could render <KanbanBoard /> below here */}
     </div>
   );
 }

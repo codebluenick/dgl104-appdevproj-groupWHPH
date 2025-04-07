@@ -1,4 +1,3 @@
-// src/pages/AssignTask.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../styles/AssignTask.css';
@@ -15,7 +14,11 @@ function AssignTask() {
 
   const handleAssign = async (taskId, userId) => {
     try {
-      await axios.put(`http://localhost:3001/api/tasks/${taskId}`, { assignedTo: userId });
+      // 🎁 Decorate the task before assigning
+      const originalTask = tasks.find(t => t._id === taskId);
+      
+
+      await axios.put(`http://localhost:3001/api/tasks/${taskId}`, );
       setMessage('✅ Task reassigned successfully!');
     } catch {
       setMessage('❌ Failed to assign task.');
@@ -24,8 +27,9 @@ function AssignTask() {
 
   return (
     <div className="assign-task-container">
-    
+      <h2>Assign or Reassign Tasks</h2>
       {message && <p className="message">{message}</p>}
+
       {tasks.map(task => (
         <div key={task._id} className="task-card">
           <h3>{task.title}</h3>
