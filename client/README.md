@@ -1,70 +1,136 @@
-# Getting Started with Create React App
+# Smart Task Management System (STMS)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Group project repo for DGL-104 Web App Development Project.
 
-## Available Scripts
+Repo URL: [https://github.com/codebluenick/dgl104-appdevproj-groupWHPH.git](https://github.com/codebluenick/dgl104-appdevproj-groupWHPH.git)
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 👥 Group Name: WPHP
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 👤 Members
+- **Hardik Vaghasiya**
+- **Varunkanth Arani Pannerselvam**
+- **Nikhil Chhetri**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🔧 Individual Contributions
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 🔹 Hardik Vaghasiya
+- Team Lead & Team Member dashboards
+- Implemented Google Login & role-based redirection
+- Full backend implementation for task CRUD operations
+- Features: Assign Task, Update Status, Comments, Email Notifications
+- Applied Design Patterns: Strategy (Task Priority), Decorator (Task Enhancement), Command (Update Task)
+- Integrated frontend with backend
+- Created all frontend task management flows
 
-### `npm run build`
+### 🔹 Varunkanth Arani Pannerselvam
+- Research, flowchart, and wireframes
+- Created the README file
+- UI planning and design decisions
+- Contributed to frontend layouts and flow structure
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 🔹 Nikhil Chhetri
+- Created the Admin panel UI and backend
+- Developed user management & task reassignment APIs
+- Helped setup MongoDB and backend routing
+- Performed testing with Jest
+- Implemented MVC architecture and core Express routes
+- Applied Observer & Factory Design Patterns
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## ✨ Core Features
 
-### `npm run eject`
+### ✅ User Roles & Permissions
+- **Admin**: Manage users, reassign tasks
+- **Team Lead**: Create & assign tasks
+- **Team Member**: View and update assigned tasks, add comments
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### ✅ Task Features
+- Create, Assign, and Update tasks
+- Task Status: To Do, In Progress, Completed
+- Priority: High, Medium, Low
+- Add Comments to Tasks
+- Email Notifications on task assignment
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### ✅ Dashboards
+- **Team Lead Dashboard**:
+  - Task creation, filtering, Kanban board, pie chart reports
+- **Team Member Dashboard**:
+  - View and update assigned tasks, add comments
+- **Admin Dashboard**:
+  - Manage users, reassign tasks
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### ✅ Visual Reports
+- Kanban View by Status
+- Pie Chart showing task distribution
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## 🧠 Design Patterns Implemented
+- **Strategy**: Priority logic based on due date, manual, or AI
+- **Decorator**: Add extra fields (labels/tags) to tasks
+- **Command**: Execute updates as command objects
+- **Observer**: Notify members when status/comments are updated
+- **Factory**: Create task notification objects based on type
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🛠️ Tech Stack
 
-### Code Splitting
+### 🔙 Backend
+- Node.js + Express.js
+- MongoDB (with Mongoose)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 🔝 Frontend
+- React.js
+- Tailwind CSS
+- Recharts (Pie Chart)
 
-### Analyzing the Bundle Size
+### 🔐 Authentication
+- Google OAuth Login
+- Role-based Access (Admin, Team Lead, Team Member)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### 📬 Notifications
+- Nodemailer (email notifications)
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 🚀 Running Locally
 
-### Advanced Configuration
+1. Clone the repo
+```bash
+git clone https://github.com/codebluenick/dgl104-appdevproj-groupWHPH.git
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+2. Setup Backend
+```bash
+cd server
+npm install
+node server.js
+```
 
-### Deployment
+3. Setup Frontend
+```bash
+cd client
+npm install
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+---
 
-### `npm run build` fails to minify
+## ✅ Testing
+- Backend testing with **Jest + Supertest**
+- Mocks MongoDB for isolated testing
+- Covered API tests: task creation, status update, user access
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+
+## 📌 Notes
+- Designed for clarity, role-based dashboards
+- Clean and functional UI
+- Bonus marks: integrated Strategy, Decorator, Command, Observer, Factory patterns
+
