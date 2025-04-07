@@ -10,7 +10,7 @@ function ViewTasks() {
   const [assignedToFilter, setAssignedToFilter] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:3001/api/tasks')
+    axios.get('http://localhost:3001/api/tasks/all')
       .then(res => {
         setTasks(res.data);
         setFilteredTasks(res.data);

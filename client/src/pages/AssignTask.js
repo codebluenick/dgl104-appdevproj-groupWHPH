@@ -9,8 +9,8 @@ function AssignTask() {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:3001/api/tasks').then(res => setTasks(res.data));
-    axios.get('http://localhost:3001/api/users').then(res => setUsers(res.data));
+    axios.get('http://localhost:3001/api/tasks/all/').then(res => setTasks(res.data));
+    axios.get('http://localhost:3001/api/users/').then(res => setUsers(res.data));
   }, []);
 
   const handleAssign = async (taskId, userId) => {

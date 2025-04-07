@@ -10,7 +10,8 @@ const {
 
 // Routes
 router.post('/', createTask);
-router.get('/', getAllTasks);
+router.get('/all', getAllTasks);
+
 router.put('/:id', updateTask);
 router.get('/assigned/:userId', getTasksForUser);
 router.post('/:id/comments', addComment);

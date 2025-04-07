@@ -2,16 +2,41 @@ const Task = require('../models/taskModel');
 const User = require('../models/users');
 const sendAssignmentEmail = require('../utils/mailer');
 
+// 🧠 Strategy Pattern - Priority logic
+const {
+  ManualPriority,
+  DeadlineBasedPriority,
+  AIPriority,
+} = require('../strategies/priorityStrategy');
+
+
 // Create Task
 exports.createTask = async (req, res) => {
   try {
-    const { title, description, dueDate, priority, assignedTo } = req.body;
+    const { title, description, dueDate, priority, assignedTo, strategy = 'deadline' } = req.body;
+
+    // Strategy logic to compute priority
+    let strategyInstance;
+    switch (strategy) {
+      case 'manual':
+        strategyInstance = new ManualPriority();
+        break;
+      case 'ai':
+        strategyInstance = new AIPriority();
+        break;
+      case 'deadline':
+      default:
+        strategyInstance = new DeadlineBasedPriority();
+    }
+    
+
+    const computedPriority = strategyInstance.getPriority({ priority, dueDate });
 
     const newTask = new Task({
       title,
       description,
       dueDate,
-      priority,
+      priority: computedPriority,
       assignedTo,
     });
 
@@ -39,6 +64,7 @@ exports.getAllTasks = async (req, res) => {
     res.status(500).json({ message: 'Server Error' });
   }
 };
+
 // Get tasks assigned to a specific user
 exports.getTasksForUser = async (req, res) => {
   const { userId } = req.params;
@@ -51,7 +77,6 @@ exports.getTasksForUser = async (req, res) => {
     res.status(500).json({ message: 'Failed to fetch tasks' });
   }
 };
-
 
 exports.updateTask = async (req, res) => {
   const { id } = req.params;

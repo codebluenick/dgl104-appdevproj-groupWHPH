@@ -14,7 +14,8 @@ function TaskPieChart() {
   const chartRef = useRef();
 
   useEffect(() => {
-    axios.get('http://localhost:3001/api/tasks')
+    axios.get('http://localhost:3001/api/tasks/all')
+
       .then(res => {
         const tasks = res.data;
         const count = { ToDo: 0, InProgress: 0, Completed: 0 };
