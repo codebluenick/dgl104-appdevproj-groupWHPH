@@ -1,115 +1,136 @@
 # Smart Task Management System (STMS)
-Group project repo for DGL-104 web app project (Smart Task Management System [STMS]).
 
-Repo url : https://github.com/codebluenick/dgl104-appdevproj-groupWHPH.git
+Group project repo for DGL-104 Web App Development Project.
 
-## Group name - WPHP
-### Members - 
-- Hardik Vaghasiya
-- Varunkanth Arani Pannerselvam
-- Nikhil Chhetri
+Repo URL: [https://github.com/codebluenick/dgl104-appdevproj-groupWHPH.git](https://github.com/codebluenick/dgl104-appdevproj-groupWHPH.git)
 
 ---
 
-# Core Features
-### 1. User Roles & Permissions
+## 👥 Group Name: WPHP
 
-- __*Admin :*__
-  - Can create user accounts (Team Lead, Team Member).
-  - Can view all tasks and reassign if needed.
-
-- __*Team Lead :*__
-  - Can create tasks and assign them to any member.
-  - Can update priority, deadlines, and status of all tasks in the project.
-
-- __*Team Member :*__
-  - Can only view and update tasks assigned to them.
-  - Can comment on tasks but not assign tasks to others.
+### 👤 Members
+- **Hardik Vaghasiya**
+- **Varunkanth Arani Pannerselvam**
+- **Nikhil Chhetri**
 
 ---
 
-### 2. Task Creation & Assignment
-- __*Create New Task :*__ Title, description, due date, priority.
-- __*Assign Task :*__ A dropdown of users (Team Members).
-- __*Edit Task :*__ A Team Lead or Admin can edit task details (title, description, priority, etc.).
+## 🔧 Individual Contributions
+
+### 🔹 Hardik Vaghasiya
+- Team Lead & Team Member dashboards
+- Implemented Google Login & role-based redirection
+- Full backend implementation for task CRUD operations
+- Features: Assign Task, Update Status, Comments, Email Notifications
+- Applied Design Patterns: Strategy (Task Priority), Decorator (Task Enhancement), Command (Update Task)
+- Integrated frontend with backend
+- Created all frontend task management flows
+
+### 🔹 Varunkanth Arani Pannerselvam
+- Research, flowchart, and wireframes
+- Created the README file
+- UI planning and design decisions
+- Contributed to frontend layouts and flow structure
+
+### 🔹 Nikhil Chhetri
+- Created the Admin panel UI and backend
+- Developed user management & task reassignment APIs
+- Helped setup MongoDB and backend routing
+- Performed testing with Jest
+- Implemented MVC architecture and core Express routes
+- Applied Observer & Factory Design Patterns
 
 ---
 
-### 3. Task Status Tracking (3-Step)
-- __*To Do*__, __*In Progress*__, __*Completed*__.
-- Users can update their own tasks by changing the status (e.g., via a dropdown).
-- Admin/Team Lead can also change the status (e.g., marking tasks as completed).
+## ✨ Core Features
+
+### ✅ User Roles & Permissions
+- **Admin**: Manage users, reassign tasks
+- **Team Lead**: Create & assign tasks
+- **Team Member**: View and update assigned tasks, add comments
+
+### ✅ Task Features
+- Create, Assign, and Update tasks
+- Task Status: To Do, In Progress, Completed
+- Priority: High, Medium, Low
+- Add Comments to Tasks
+- Email Notifications on task assignment
+
+### ✅ Dashboards
+- **Team Lead Dashboard**:
+  - Task creation, filtering, Kanban board, pie chart reports
+- **Team Member Dashboard**:
+  - View and update assigned tasks, add comments
+- **Admin Dashboard**:
+  - Manage users, reassign tasks
+
+### ✅ Visual Reports
+- Kanban View by Status
+- Pie Chart showing task distribution
 
 ---
 
-### 4. Collaboration & Basic Notifications
-- __*Comments*__ on each task to centralize discussions.
-- __*Notifications*__: 
-  - Could be email or simple in-app alerts.
-  - Triggered when a user is assigned a task or when new comments are added.
+## 🧠 Design Patterns Implemented
+- **Strategy**: Priority logic based on due date, manual, or AI
+- **Decorator**: Add extra fields (labels/tags) to tasks
+- **Command**: Execute updates as command objects
+- **Observer**: Notify members when status/comments are updated
+- **Factory**: Create task notification objects based on type
 
 ---
 
-### 5. Priority Levels & Deadlines
-- Three levels: __*High*__, __*Medium*__, __*Low*__.
-- Tasks displayed in priority order on the dashboard (e.g., highlight high-priority tasks).
+## 🛠️ Tech Stack
+
+### 🔙 Backend
+- Node.js + Express.js
+- MongoDB (with Mongoose)
+
+### 🔝 Frontend
+- React.js
+- Tailwind CSS
+- Recharts (Pie Chart)
+
+### 🔐 Authentication
+- Google OAuth Login
+- Role-based Access (Admin, Team Lead, Team Member)
+
+### 📬 Notifications
+- Nodemailer (email notifications)
 
 ---
 
-### 6. Dashboard & Reports
-- __*Kanban Board*__: Columns for **To Do**, **In Progress**, and **Completed**.
-- __*Pie Chart (Optional)*__: Shows the total tasks by status using a simple Chart.js component.
+## 🚀 Running Locally
+
+1. Clone the repo
+```bash
+git clone https://github.com/codebluenick/dgl104-appdevproj-groupWHPH.git
+```
+
+2. Setup Backend
+```bash
+cd server
+npm install
+node server.js
+```
+
+3. Setup Frontend
+```bash
+cd client
+npm install
+npm start
+```
 
 ---
 
-### 7. CI/CD Pipeline 
-- __*GitHub Actions :*__ Runs basic unit tests or lint checks on every Pull Request.
-- __*Deployment :*__ Deploy to free hosting (Heroku, Netlify, or Vercel) if tests pass.
-
-# Technology Stack
-### Backend
-- **Node.js + Express**  
-  
-- __*Database :*__  **MongoDB**   
+## ✅ Testing
+- Backend testing with **Jest + Supertest**
+- Mocks MongoDB for isolated testing
+- Covered API tests: task creation, status update, user access
 
 ---
 
-### Frontend
-- **React** 
-  
----
+## 📌 Notes
+- Designed for clarity, role-based dashboards
+- Clean and functional UI
+- Bonus marks: integrated Strategy, Decorator, Command, Observer, Factory patterns
 
-### Authentication
-- **Google**
-
----
-
-### Notifications
-- **In-App Notifications**  
-  - Store notifications in the database and display them in the UI (e.g., a bell icon or notification feed).
-- **Email Notifications**  
-  - Can be added later using a service like **Nodemailer** to send emails upon task assignment or status updates.
-
-
-# Wireframe
-
-### User Flow
-
-<img src="Image/UserFlow.jpeg" alt="UserFlow" width="600">
-
-### Team Member
-
-<img src="Image/Team Member - Flow.jpeg" alt="UserFlow" width="600">
-
-### Log-in/Sign-up Page
-
-<img src="Image/Loginpage.jpeg" alt="UserFlow" width="300">
-<img src="Image/SignupPage.jpeg" alt="UserFlow" width="300">
-
-### Dashboard Page
-
-<img src="Image/DashboardPage.jpeg" alt="UserFlow" width="550">
-
-### CreateTask Page
-
-<img src="Image/CreatetaskPage.jpeg" alt="UserFlow" width="550">
