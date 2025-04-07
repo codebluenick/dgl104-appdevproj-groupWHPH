@@ -66,24 +66,21 @@ Repo url : https://github.com/codebluenick/dgl104-appdevproj-groupWHPH.git
 - __*GitHub Actions :*__ Runs basic unit tests or lint checks on every Pull Request.
 - __*Deployment :*__ Deploy to free hosting (Heroku, Netlify, or Vercel) if tests pass.
 
-
-## Technology Stack
+# Technology Stack
 ### Backend
 - **Node.js + Express**  
   
-- __*Database :*__  **MongoDB** or **MySQL**  
+- __*Database :*__  **MongoDB**   
 
 ---
 
 ### Frontend
 - **React** 
   
-- __*UI Library :*__  **Bootstrap** or **Tailwind**
-
 ---
 
 ### Authentication
-- **JWT (JSON Web Tokens)**
+- **Google**
 
 ---
 
@@ -92,3 +89,27 @@ Repo url : https://github.com/codebluenick/dgl104-appdevproj-groupWHPH.git
   - Store notifications in the database and display them in the UI (e.g., a bell icon or notification feed).
 - **Email Notifications**  
   - Can be added later using a service like **Nodemailer** to send emails upon task assignment or status updates.
+
+
+# Wireframe
+
+### User Flow
+
+<img src="Image/UserFlow.jpeg" alt="UserFlow" width="600">
+
+### Team Member
+
+<img src="Image/Team Member - Flow.jpeg" alt="UserFlow" width="600">
+
+### Log-in/Sign-up Page
+
+<img src="Image/Loginpage.jpeg" alt="UserFlow" width="300">
+<img src="Image/SignupPage.jpeg" alt="UserFlow" width="300">
+
+### Dashboard Page
+
+<img src="Image/DashboardPage.jpeg" alt="UserFlow" width="550">
+
+### CreateTask Page
+
+<img src="Image/CreatetaskPage.jpeg" alt="UserFlow" width="550">
