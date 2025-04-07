@@ -14,6 +14,15 @@ exports.createTask = async (req, res) => {
     });
 
     await newTask.save();
+    // Send email to the assigned user
+    const user = await User.findById(assignedTo);
+    if (user?.email) {
+      await sendAssignmentEmail(user.email, title, dueDate, newTask._id);
+      console.log(`Email sent to ${user.email}`);
+    } else {
+      console.warn('Assigned user not found or missing email');
+    }
+    
     res.status(201).json({ message: 'Task created successfully', task: newTask });
   } catch (error) {
     console.error('Error creating task:', error);
