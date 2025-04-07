@@ -34,8 +34,8 @@ function CreateTask({ onCancel }) {
       alert('✅ Task created successfully!');
       onCancel(); // Close or navigate back
     } catch (err) {
-      console.error('❌ Error creating task:', err);
-      alert('❌ Failed to create task.');
+      console.error('❌ Error creating task:', err.response?.data || err.message);
+      alert(`❌ Failed to create task: ${err.response?.data?.message || 'Unknown error'}`);
     }
   };
 
