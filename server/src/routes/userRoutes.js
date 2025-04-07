@@ -39,4 +39,27 @@ router.put('/bulk-update', async (req, res) => {
   }
 });
 
+// POST /api/users → create or fetch user
+router.post('/', async (req, res) => {
+  const { name, email, role } = req.body;
+
+  try {
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      user = new User({ name, email, role });
+      await user.save();
+      console.log('New user created:', email);
+    } else {
+      console.log('User already exists:', email);
+    }
+
+    res.status(200).json({ message: 'User logged in/created', user });
+  } catch (err) {
+    console.error('Error saving user:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
 module.exports = router;
