@@ -1,30 +1,53 @@
 // pages/ManageUsers.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import '../styles/ManageUsers.css'; 
 
-const mockUsers = [
-  { id: 1, name: 'Hardik Vaghasiya', email: 'hardik.vaghasiya.admission@gmail.com', role: 'Admin' },
-  { id: 2, name: 'Team Lead User', email: 'vaghasiyahardik2001@gmail.com', role: 'TeamLead' },
-  { id: 3, name: 'Member One', email: 'gratisbear14@gmail.com', role: 'TeamMember' },
-];
+// const mockUsers = [
+//   { id: 1, name: 'Hardik Vaghasiya', email: 'hardik.vaghasiya.admission@gmail.com', role: 'Admin' },
+//   { id: 2, name: 'Team Lead User', email: 'vaghasiyahardik2001@gmail.com', role: 'TeamLead' },
+//   { id: 3, name: 'Member One', email: 'gratisbear14@gmail.com', role: 'TeamMember' },
+// ];
 
-const roles = ['Admin', 'TeamLead', 'TeamMember'];
 
 function ManageUsers() {
-  const [users, setUsers] = useState(mockUsers);
-
+  // const [users, setUsers] = useState(mockUsers);
+  // userRoles
+  const roles = ['admin', 'teamlead', 'teammember'];
+  // state for the user list
+  const [users, setUsers] = useState([]);
+  
+  // fetch data from backend
+  useEffect(() => {
+    axios.get('http://localhost:3001/api/users')
+      .then(res => setUsers(res.data))
+      .catch(err => console.error('Failed to fetch users:', err));
+  }, []);
+  // handle role changes in the role dropdown
   const handleRoleChange = (userId, newRole) => {
-    setUsers((prev) =>
-      prev.map((user) =>
-        user.id === userId ? { ...user, role: newRole } : user
+    setUsers(prevUsers =>
+      prevUsers.map(user =>
+        user._id === userId ? { ...user, role: newRole } : user
       )
     );
   };
+  
 
+  // const handleSaveChanges = () => {
+  //   console.log('🔁 Saving changes to backend (coming soon)...');
+  //   console.table(users);
+  //   alert('Changes saved (mock)');
+  // };
+  // save changes to backend
   const handleSaveChanges = () => {
-    console.log('🔁 Saving changes to backend (coming soon)...');
-    console.table(users);
-    alert('Changes saved (mock)');
+    axios.put('http://localhost:3001/api/users/bulk-update', { users })
+      .then(() => {
+        alert('Changes saved successfully!');
+      })
+      .catch((err) => {
+        console.error('Failed to save changes:', err);
+        alert('Failed to save changes.');
+      });
   };
 
   return (
@@ -40,13 +63,13 @@ function ManageUsers() {
         </thead>
         <tbody>
           {users.map((user) => (
-            <tr key={user.id}>
+            <tr key={user._id}>
               <td>{user.name}</td>
               <td>{user.email}</td>
               <td>
                 <select
                   value={user.role}
-                  onChange={(e) => handleRoleChange(user.id, e.target.value)}
+                  onChange={(e) => handleRoleChange(user._id, e.target.value)}
                 >
                   {roles.map((role) => (
                     <option key={role} value={role}>{role}</option>
