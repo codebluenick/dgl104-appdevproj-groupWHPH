@@ -1,4 +1,5 @@
 const Task = require('../models/taskModel');
+const User = require('../models/userModel');
 
 // Create Task
 exports.createTask = async (req, res) => {
@@ -15,12 +16,16 @@ exports.createTask = async (req, res) => {
 
     await newTask.save();
     // Send email to the assigned user
-    const user = await User.findById(assignedTo);
-    if (user?.email) {
-      await sendAssignmentEmail(user.email, title, dueDate, newTask._id);
-      console.log(`Email sent to ${user.email}`);
-    } else {
-      console.warn('Assigned user not found or missing email');
+    try {
+      const user = await User.findById(assignedTo);
+      if (user?.email) {
+        await sendAssignmentEmail(user.email, title, dueDate, newTask._id);
+        console.log(`Email sent to ${user.email}`);
+      } else {
+        console.warn('Assigned user not found or missing email');
+      }
+    } catch (emailErr) {
+      console.error('Email send failed:', emailErr.message);
     }
     
     res.status(201).json({ message: 'Task created successfully', task: newTask });
