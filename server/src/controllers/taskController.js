@@ -1,5 +1,5 @@
 const Task = require('../models/taskModel');
-const User = require('../models/users');
+const User = require('../models/userModel');
 const sendAssignmentEmail = require('../utils/mailer');
 
 // 🧠 Strategy Pattern - Priority logic
