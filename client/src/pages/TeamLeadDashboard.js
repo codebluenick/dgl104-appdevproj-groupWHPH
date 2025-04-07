@@ -1,83 +1,65 @@
+// src/pages/TeamLeadDashboard.js
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Sidebar from './components/sidebar';
 import TaskCard from './components/TaskCard';
-import CreateTask from '../pages/CreateTask';
-import AssignTask from '../pages/AssignTask';
-import ViewTasks from '../pages/ViewTasks'; 
+import CreateTask from './CreateTask';
+import AssignTask from './AssignTask';
+import ViewTasks from './ViewTasks';
+import KanbanBoard from './KanbanBoard';
 import '../styles/Dashboard.css';
 
-
 function TeamLeadDashboard() {
-  const [showCreateTask, setShowCreateTask] = useState(false);
-  const [showAssignTask, setShowAssignTask] = useState(false);
-  const [showViewTasks, setShowViewTasks] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
 
-  const isFormOpen = showCreateTask || showAssignTask || showViewTasks;
+  const handleHomeClick = () => setActiveSection('');
+  const handleKanbanClick = () => setActiveSection('kanban');
 
-  const handleHomeClick = () => {
-    setShowCreateTask(false);
-    setShowAssignTask(false);
-    setShowViewTasks(false);
-  };
-
-  return (
-    <div className="dashboard">
-      <Sidebar onHomeClick={handleHomeClick} />
-      <div className="dashboard-content">
-        <div className="top-bar">
-          <h1>Team Lead Dashboard</h1>
-        </div>
-
-        {!isFormOpen && (
+  const renderActiveComponent = () => {
+    switch (activeSection) {
+      case 'create':
+        return <CreateTask onCancel={handleHomeClick} />;
+      case 'assign':
+        return <AssignTask onCancel={handleHomeClick} />;
+      case 'view':
+        return <ViewTasks onCancel={handleHomeClick} />;
+      case 'kanban':
+        return <KanbanBoard />;
+      default:
+        return (
           <div className="card-grid">
             <TaskCard
               title="Create Task"
               description="Create a new task for your team."
-              onClick={() => {
-                setShowCreateTask(true);
-                setShowAssignTask(false);
-                setShowViewTasks(false);
-              }}
+              onClick={() => setActiveSection('create')}
             />
             <TaskCard
               title="Assign Task"
               description="Assign tasks to team members."
-              onClick={() => {
-                setShowAssignTask(true);
-                setShowCreateTask(false);
-                setShowViewTasks(false);
-              }}
+              onClick={() => setActiveSection('assign')}
             />
             <TaskCard
               title="View All Tasks"
               description="Monitor progress across all tasks."
-              onClick={() => {
-                setShowViewTasks(true);
-                setShowCreateTask(false);
-                setShowAssignTask(false);
-              }}
+              onClick={() => setActiveSection('view')}
+            />
+            <TaskCard
+              title="Kanban Board"
+              description="Visualize tasks by status."
+              onClick={() => setActiveSection('kanban')}
             />
           </div>
-        )}
+        );
+    }
+  };
 
-        {showCreateTask && (
-          <div className="create-task-wrapper">
-            <CreateTask onCancel={() => setShowCreateTask(false)} />
-          </div>
-        )}
-
-        {showAssignTask && (
-          <div className="create-task-wrapper">
-            <AssignTask onCancel={() => setShowAssignTask(false)} />
-          </div>
-        )}
-
-        {showViewTasks && (
-          <div className="create-task-wrapper">
-            <ViewTasks onCancel={() => setShowViewTasks(false)} />
-          </div>
-        )}
+  return (
+    <div className="dashboard">
+      <Sidebar onHomeClick={handleHomeClick} onKanbanClick={handleKanbanClick} />
+      <div className="dashboard-content">
+        <div className="top-bar">
+          <h1>Team Lead Dashboard</h1>
+        </div>
+        <div className="create-task-wrapper">{renderActiveComponent()}</div>
       </div>
     </div>
   );
