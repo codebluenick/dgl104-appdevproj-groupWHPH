@@ -31,15 +31,20 @@ function AdminViewTasks() {
           </tr>
         </thead>
         <tbody>
-          {tasks.map((task) => (
-            <tr key={task.id}>
-              <td>{task.title}</td>
-              <td>{task.assignedTo}</td>
-              <td>{task.priority}</td>
-              <td>{task.status}</td>
-            </tr>
-          ))}
-        </tbody>
+        {tasks.map((task) => (
+          <tr key={task._id}>
+            <td>{task.title}</td>
+            <td>
+              {task.assignedTo
+                ? `${task.assignedTo.name} (${task.assignedTo.email})`
+                : 'Unassigned'}
+            </td>
+            <td>{task.priority}</td>
+            <td>{task.status}</td>
+          </tr>
+        ))}
+      </tbody>
+
       </table>
     </div>
   );
