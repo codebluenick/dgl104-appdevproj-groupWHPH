@@ -91,25 +91,3 @@ Repo url : https://github.com/codebluenick/dgl104-appdevproj-groupWHPH.git
   - Can be added later using a service like **Nodemailer** to send emails upon task assignment or status updates.
 
 
-# Wireframe
-
-### User Flow
-
-<img src="Image/UserFlow.jpeg" alt="UserFlow" width="600">
-
-### Team Member
-
-<img src="Image/Team Member - Flow.jpeg" alt="UserFlow" width="600">
-
-### Log-in/Sign-up Page
-
-<img src="Image/Loginpage.jpeg" alt="UserFlow" width="300">
-<img src="Image/SignupPage.jpeg" alt="UserFlow" width="300">
-
-### Dashboard Page
-
-<img src="Image/DashboardPage.jpeg" alt="UserFlow" width="550">
-
-### CreateTask Page
-
-<img src="Image/CreatetaskPage.jpeg" alt="UserFlow" width="550">
