@@ -37,11 +37,11 @@ function App() {
 
   const redirectDashboard = () => {
     switch (role) {
-      case 'Admin':
+      case 'admin':
         return <Navigate to="/admin" />;
-      case 'TeamLead':
+      case 'teamlead':
         return <Navigate to="/team-lead" />;
-      case 'TeamMember':
+      case 'teammember':
         return <Navigate to="/team-member" />;
       default:
         return <Navigate to="/login" />;

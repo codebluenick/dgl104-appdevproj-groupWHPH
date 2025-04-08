@@ -14,8 +14,8 @@ function LoginPage({ onLoginSuccess }) {
       const userPic = decoded.picture;
       const userName = decoded.name;
 
-      const adminEmails = ['hardik.vaghasiya.admission@gmail.com'];
-      const teamLeadEmails = ['vaghasiyahardik2001@gmail.com'];
+      const adminEmails = ['hardik.vaghasiya.admission@gmail.com','codebluenick@gmail.com'];
+      const teamLeadEmails = ['vaghasiyahardik2001@gmail.com','nikzrockz1631@gmail.com'];
       const teamMemberEmails = ['gratisbear14@gmail.com'];
 
       let role = 'teammember';

@@ -10,7 +10,7 @@ class BaseUser {
 class AdminUser extends BaseUser {
     constructor(name, email) {
       super(name, email);
-      this.role = 'Admin';
+      this.role = 'admin';
     }
 }
 
@@ -18,7 +18,7 @@ class AdminUser extends BaseUser {
 class TeamLeadUser extends BaseUser {
     constructor(name, email) {
       super(name, email);
-      this.role = 'TeamLead';
+      this.role = 'teamlead';
     }
 }
   
@@ -26,18 +26,18 @@ class TeamLeadUser extends BaseUser {
 class TeamMemberUser extends BaseUser {
     constructor(name, email) {
       super(name, email);
-      this.role = 'TeamMember';
+      this.role = 'teammember';
     }
 }
   
 // Factory function
 function userFactory(role, name, email) {
     switch (role) {
-      case 'Admin':
+      case 'admin':
         return new AdminUser(name, email);
-      case 'TeamLead':
+      case 'teamlead':
         return new TeamLeadUser(name, email);
-      case 'TeamMember':
+      case 'teammember':
       default:
         return new TeamMemberUser(name, email);
     }

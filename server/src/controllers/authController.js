@@ -1,15 +1,15 @@
+// src/controllers/authController.js
 const User = require('../models/userModel');
 
-async function handleLogin(req, res) {
+const handleLogin = async (req, res) => {
   const { name, email } = req.body;
 
   try {
     // Check if user already exists
     let user = await User.findOne({ email });
 
-    // If not, create user with default or assigned role
+    // If not, create the user and assign a role
     if (!user) {
-      // You can assign roles manually or based on email logic
       const role = (email === 'admin@example.com') ? 'admin' :
                    (email === 'teamlead@example.com') ? 'teamlead' : 'teammember';
 
@@ -17,14 +17,20 @@ async function handleLogin(req, res) {
       await user.save();
     }
 
-    // Store basic user info in session or JWT or send to frontend
- // server/src/controllers/authController.js
-exports.registerUser = (req, res) => {
-  res.status(200).json({ message: "User registered successfully!" });
+    // Respond with user info (optionally include token in real app)
+    res.status(200).json({
+      message: 'User logged in successfully!',
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
+    });
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).json({ message: 'Server error during login' });
+  }
 };
 
-
-  } catch (error) {
-    return res.status(500).json({ message: 'Server error during login' });
-  }
-}
+module.exports = { handleLogin };
